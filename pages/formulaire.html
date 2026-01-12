@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer votre CV</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/formulaire.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 2V8H20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16 13H8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16 17H8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10 9H9H8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Générateur de CV
+        </div>
+        <div class="navbar-menu">
+            <a href="accueil.html" class="nav-link">Accueil</a>
+            <a href="collection.html" class="nav-link">Mes CVs</a>
+            <a href="#" id="logoutBtn" class="btn btn-logout">Déconnexion</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="form-header">
+            <h1>Créer votre CV</h1>
+            <p>Remplissez les informations ci-dessous pour créer votre CV</p>
+        </div>
+        
+        <div id="alertMessage" class="alert"></div>
+        
+        <form id="cvForm" enctype="multipart/form-data">
+            <!-- Informations Personnelles -->
+            <div class="form-section">
+                <h2>Informations Personnelles</h2>
+                
+                <div class="form-group">
+                    <label for="photo_profil">Photo de Profil *</label>
+                    <input type="file" id="photo_profil" name="photo_profil" accept="image/*" required>
+                    <small>Format accepté: JPG, PNG (max 5MB)</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nom">Nom *</label>
+                    <input type="text" id="nom" name="nom" required pattern="[A-Za-zÀ-ÿ\s\-']+" 
+                           title="Le nom ne doit contenir que des lettres">
+                </div>
+                
+                <div class="form-group">
+                    <label for="prenom">Prénom *</label>
+                    <input type="text" id="prenom" name="prenom" required pattern="[A-Za-zÀ-ÿ\s\-']+" 
+                           title="Le prénom ne doit contenir que des lettres">
+                </div>
+                
+                <div class="form-group">
+                    <label for="titre_professionnel">Titre Professionnel *</label>
+                    <input type="text" id="titre_professionnel" name="titre_professionnel" required
+                           placeholder="Ex: Développeur Web">
+                </div>
+                
+                <div class="form-group">
+                    <label for="description_profil">Description de vous (Profil) *</label>
+                    <textarea id="description_profil" name="description_profil" required
+                              placeholder="Présentez-vous en quelques lignes"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="telephone">Téléphone *</label>
+                    <input type="tel" id="telephone" name="telephone" required 
+                           pattern="\+212[0-9]{9}" 
+                           placeholder="+212XXXXXXXXX"
+                           title="Format: +212 suivi de 9 chiffres">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required 
+                           placeholder="votre@email.com">
+                </div>
+            </div>
+            
+            <!-- Expériences Professionnelles -->
+            <div class="form-section">
+                <h2>Expériences Professionnelles</h2>
+                <div id="experiencesContainer"></div>
+                <button type="button" class="btn btn-add" onclick="addExperience()">+ Ajouter une expérience</button>
+            </div>
+            
+            <!-- Diplômes -->
+            <div class="form-section">
+                <h2>Diplômes</h2>
+                <div id="diplomesContainer"></div>
+                <button type="button" class="btn btn-add" onclick="addDiplome()">+ Ajouter un diplôme</button>
+            </div>
+            
+            <!-- Certificats -->
+            <div class="form-section">
+                <h2>Certificats</h2>
+                <div id="certificatsContainer"></div>
+                <button type="button" class="btn btn-add" onclick="addCertificat()">+ Ajouter un certificat</button>
+            </div>
+            
+            <!-- Langues -->
+            <div class="form-section">
+                <h2>Langues</h2>
+                <div id="languesContainer"></div>
+                <button type="button" class="btn btn-add" onclick="addLangue()">+ Ajouter une langue</button>
+            </div>
+            
+            <!-- Loisirs -->
+            <div class="form-section">
+                <h2>Loisirs</h2>
+                <div id="loisirsContainer"></div>
+                <button type="button" class="btn btn-add" onclick="addLoisir()">+ Ajouter un loisir</button>
+            </div>
+            
+            <!-- Boutons d'action -->
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='accueil.html'">
+                    Annuler
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    Générer le CV
+                </button>
+            </div>
+        </form>
+    </div>
+    
+    <script src="../js/formulaire.js"></script>
+</body>
+</html>
